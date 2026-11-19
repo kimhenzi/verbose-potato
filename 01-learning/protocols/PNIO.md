@@ -1,14 +1,14 @@
 # PROFINET IO (PN-IO)
 A **fieldbus protocol** for **decentralised Input/Output**. (Sources: Wireshark Wiki)
 ## fieldbus protocol
-  A digital, serial, **multi-drop**, two-way data bus or communication path or link between low-level industrial field equipment
-    such as sensors, **transducers**, **actuators**, local controllers, and even control room devices.
-* **Multi-Drop Bus (MDB)** -- what is different from general buses?
-A computer bus able to connect three or more devices.
-A process of **arbitration** determines which device sends information at any point.
-The other devices listen for the data they are intended to receive. (Sources: Wikipedia - Multidrop bus)
+A digital, serial, **multi-drop**, two-way data bus or communication path or link between low-level industrial field equipment such as sensors, **transducers**, **actuators**, local controllers, and even control room devices.
 
-  Multidrop buses have the advantage of simplicity and extensibility, but their differing electrical characteristics make them relatively unsuitable for high frequency or high bandwidth applications.
+* **Multi-Drop Bus (MDB)** -- what is different from general buses?
+  A computer bus able to connect three or more devices.
+A process of arbitration determines which device sends information at any point.
+The other devices listen for the data they are intended to receive.
+
+  Multidrop buses have the advantage of simplicity and extensibility, but their differing electrical characteristics make them relatively unsuitable for high frequency or high bandwidth applications. (Sources: Wikipedia - Multidrop bus)
 
 * **Transducer Capabilities:** provide the ability for computing devices to interact directly with physical entities of interest.
 The two types: **sensing** and **actuating** (Sources: NIST GLOSSARY)
