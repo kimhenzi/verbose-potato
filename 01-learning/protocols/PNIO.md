@@ -14,7 +14,7 @@ The other devices listen for the data they are intended to receive.
 The two types: **sensing** and **actuating** (Sources: NIST GLOSSARY)
 
 ### Why need fieldbus?
-Use of fieldbus technologies eliminates the need for point-to-point writing between the controller and each device.
+Use of fieldbus technologies eliminates the need for point-to-point wiring between the controller and each device.
 A protocol is used to define messages over the fieldbus network, and each message identifies a particular sensor on the network. (Sources: NIST GLOSSARY)
 
 ## Decentralised I/O (vs Centralised Control Systems)
