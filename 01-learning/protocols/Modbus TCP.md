@@ -26,7 +26,7 @@ Unit ID acts as a translator between a multi-device serial network and Modbus TC
   - This allows each serial server to be individually represented and _polled_ through the same Ethernet connection, using the Unit ID to uniquely identify the destination once the packet reaches the gateway.
   
 ### 2. Modbus TCP/IP Polling
-**Polling**: the process of repeatedly sampling the status of external devices by a client program (Sources: TechTarget)
+**Polling:** the process of repeatedly sampling the status of external devices by a client program (Sources: TechTarget)
 
 This protocol allows for simultaneous communication by opening multiple TCP sockets at once, so a client can poll several different IP addresses at once rather than waiting for each device in a row 
 But every server has a physical hardware limit on how many sockets it can maintain.
