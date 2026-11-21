@@ -1,9 +1,11 @@
 # Devices
-1. MitsubishiEl_e0:04:e2 (192.168.127.24)
-2. MitsubishiEl_bc:51:2b (192.168.127.21 / 58:52:8a:bc:51:2b)
-3. MitsubishiEl_e0:69:ce (192.168.127.33)
-4. Dell_a5:8b:6a (192.168.127.6)
-5. SiemensIndus_a1:c1:a6 (192.168.127.11)
+| Devices | IP Address | MAC Address |
+| --------| ---------- | ----------- |
+| MitsubishiEl_e0:04:e2 | 192.168.127.24 | . |
+| MitsubishiEl_bc:51:2b | 192.168.127.21 | 58:52:8a:bc:51:2b |
+| MitsubishiEl_e0:69:ce | 192.168.127.33 | . |
+| Dell_a5:8b:6a | 192.168.127.6 | . |
+| SiemensIndus_a1:c1:a6 | 192.168.127.11 | . |
  
 
 # PNIO
