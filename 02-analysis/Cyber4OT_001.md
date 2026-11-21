@@ -1,13 +1,13 @@
 # Devices
-| Devices | IP Address | MAC Address | Role |
+| Devices | IP Address | MAC Address | Info |
 | ------- | ---------- | ----------- | ---- |
 | MitsubishiEl_2d:ba:c1 | . | 28:e9:8e:2d:ba:c1 | . |
-| MitsubishiEl_bc:51:2b | 192.168.127.21 | 58:52:8a:bc:51:2b | peripheral device (server/slave) |
-| MitsubishiEl_bc:51:29 | 192.168.127.20 | 58:52:8a:bc:51:29 | controller (client/master) |
-| MitsubishiEl_e0:69:ce | 192.168.127.33 | . | . |
-| MitsubishiEl_e0:04:e2 | 192.168.127.24 | . | . |
-| Dell_a5:8b:6a | 192.168.127.6 | 84:2b:2b:a5:8b:6a | controller (client/master) |
-| SiemensIndus_a1:c1:a6 | 192.168.127.11 | . | . |
+| MitsubishiEl_bc:51:29 | 192.168.127.20 | 58:52:8a:bc:51:29 | PLC1 (FX5U) |
+| MitsubishiEl_bc:51:2b | 192.168.127.21 | 58:52:8a:bc:51:2b | PLC2 (FX5U) |
+| MitsubishiEl_e0:69:ce | 192.168.127.33 | . | Mitsubishi GOT3 HMI |
+| MitsubishiEl_e0:04:e2 | 192.168.127.24 | . | Mitsubishi GOT2 HMI |
+| Dell_a5:8b:6a | 192.168.127.6 | 84:2b:2b:a5:8b:6a | SCADA MAPS system |
+| SiemensIndus_a1:c1:a6 | 192.168.127.11 | . | S7-1200 V4 |
 | RockwellAuto_05:29:85 | . | e4:90:69:05:29:85 | . |
  
 
