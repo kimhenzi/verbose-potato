@@ -35,6 +35,8 @@ But every server has a physical hardware limit on how many sockets it can mainta
 Because the protocol itself operates on a request-response basis, every command sent by the client must have a corresponding response from the server to confirm the transaction regardless of how many sockets are open.////////
 
 #### Polling through a Modbus Gateway
-
+While a client can poll multiple gateways simultaneously, the devices behind a single gateway must still be polled sequentially.
+Because the gateway must translate the Ethernet message back into a serial broadcast, the RS-485 daisy chain still uses half-duplex (one-at-a-time) communication.
+If a client sends multiple requests to different Unit IDs on the same gateway too quickly, the gateway will buffer those requests and send them out one by one.
 
 (Sources: Real Time Automation)
