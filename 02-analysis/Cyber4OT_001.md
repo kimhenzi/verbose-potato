@@ -1,6 +1,7 @@
 # Devices
 | Devices | IP Address | MAC Address |
 | --------| ---------- | ----------- |
+| MitsubishiEl_2d:ba:c1 | . | 28:e9:8e:2d:ba:c1 |
 | MitsubishiEl_bc:51:2b | 192.168.127.21 | 58:52:8a:bc:51:2b |
 | MitsubishiEl_bc:51:29 | 192.168.127.20 | 58:52:8a:bc:51:29 |
 | MitsubishiEl_e0:69:ce | 192.168.127.33 | . |
