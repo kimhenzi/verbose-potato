@@ -7,6 +7,7 @@
 | MitsubishiEl_e0:04:e2 | 192.168.127.24 | . |
 | Dell_a5:8b:6a | 192.168.127.6 | 84:2b:2b:a5:8b:6a |
 | SiemensIndus_a1:c1:a6 | 192.168.127.11 | . |
+| RockwellAuto_05:29:85 | . | e4:90:69:05:29:85 |
  
 
 # PNIO
