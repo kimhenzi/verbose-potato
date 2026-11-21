@@ -2,7 +2,7 @@
 | Devices | IP Address | MAC Address |
 | --------| ---------- | ----------- |
 | MitsubishiEl_bc:51:2b | 192.168.127.21 | 58:52:8a:bc:51:2b |
-| MitsubishiEl_bc:51:29 | . | 58:52:8a:bc:51:29 |
+| MitsubishiEl_bc:51:29 | 192.168.127.20 | 58:52:8a:bc:51:29 |
 | MitsubishiEl_e0:69:ce | 192.168.127.33 | . |
 | MitsubishiEl_e0:04:e2 | 192.168.127.24 | . |
 | Dell_a5:8b:6a | 192.168.127.6 | . |
