@@ -1,4 +1,4 @@
-<img width="1438" height="808" alt="image" src="https://github.com/user-attachments/assets/69ef7dbe-4270-48e5-a8d4-fa694fd6d767" /><img width="600" height="802" alt="image" src="https://github.com/user-attachments/assets/6cbd532a-5587-482f-8a97-fe7ba6d16d09" />
+<img width="600" height="802" alt="image" src="https://github.com/user-attachments/assets/6cbd532a-5587-482f-8a97-fe7ba6d16d09" />
 
 - **SCADA MAPS** (Mitsubishi Adroit Process Suite):
   - **SCADA** (Supervisory Control and Data Acquisition)
