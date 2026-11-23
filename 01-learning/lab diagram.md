@@ -2,7 +2,7 @@
 title: "Lab Diagram"
 format:
   html:
-    css: markdown.css
+    css: ../styles/custom.css
 ---
 
 <img width="600" height="802" alt="image" src="https://github.com/user-attachments/assets/6cbd532a-5587-482f-8a97-fe7ba6d16d09" />
