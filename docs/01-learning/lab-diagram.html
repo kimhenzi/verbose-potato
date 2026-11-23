@@ -140,7 +140,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong>SCADA</strong> (Supervisory Control and Data Acquisition)</li>
 <li><strong>Adroit</strong>: SCADA/HMI software tailored for Windows and designed to streamline process control, manufacturing systems, and open automation tasks (Sources: MAPS SCADA)</li>
-<li>The MAPS takes raw data from front-end devices like a <strong>PLC</strong> or <strong>RTU</strong> in the process field and transforms it into an easy-to-understand graphical representation, whilst adding the ability to log history, alarming and eventing.</li>
+<li>The <strong>MAPS</strong> takes raw data from front-end devices like a <strong>PLC</strong> or <strong>RTU</strong> in the process field and transforms it into an easy-to-understand graphical representation, whilst adding the ability to log history, alarming and eventing.</li>
 </ul></li>
 <li><p><strong>iQ-R</strong> (Mitsubishi Electric Programmable Controllers MELSEC): Programmable automation controllers capable of handling diversified automation control needs (Sources: Mitsubishi Electric)</p></li>
 <li><p><strong>Mitsubishi GOT</strong> (Graphic Operation Terminal): a type of <strong>HMI</strong>, usually connected to an actuator (<strong>VFD</strong>) or a brain (<strong>PLC</strong>). GOTs usually come in the form of a touchscreen with at least one network connection point (usually ethernet, but in some cases, serial) (Sources: My Mitsubishi Support)</p>
@@ -180,7 +180,19 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="thermal-stand-heating-cooling" class="level3">
 <h3 class="anchored" data-anchor-id="thermal-stand-heating-cooling">3. Thermal stand (Heating-cooling)</h3>
-<p>The user influences the temperature distribution in the facility through controllable fans and heaters.</p>
+<p>The user influences the temperature distribution in the facility through controllable fans and heaters. The test bed can be controlled via an automation system using the <strong>Modbus</strong> communication protocol.</p>
+<p>The thermal stand has six manipulated variables: <strong>Pulse Width Modulation (PWM)</strong> signals that control the fans.</p>
+<ul>
+<li><strong>Pulse Width Modulation:</strong> any method of representing a signal as a rectangular wave with a varying <strong>duty cycle</strong>. (Sources: Wikipedia)
+<ul>
+<li><strong>Duty cycle</strong>: the proportion of ‘on’ time to the regular interval or ‘period’ of time
+<ul>
+<li>Expressed in percent, 100% being fully on; when a digital signal is on half of the time and off the other half of the time, the digital signal has a duty cycle of 50% and resembles a “square” wave. The process has seven measured output variables: temperatures in different parts of the system.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>The temperature sensors communicate internally using the <strong>OneWire bus</strong>, while current and voltage measurements use dedicated electronic devices.</p>
+<p>All inputs and output signals are available via the Modbus protocol.</p>
 
 
 </section>
