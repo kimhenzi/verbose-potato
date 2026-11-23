@@ -1,0 +1,9 @@
+---
+title: "OT Security Learning Notes"
+---
+
+# Welcome
+A learning portfolio documenting my exploration of OT Security
+
+## Learning Notes
+- [Lab Diagram](01-learning/lab-diagram.qmd)
