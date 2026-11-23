@@ -1,3 +1,10 @@
+---
+title: "Lab Diagram"
+format:
+  html:
+    css: markdown.css
+---
+
 <img width="600" height="802" alt="image" src="https://github.com/user-attachments/assets/6cbd532a-5587-482f-8a97-fe7ba6d16d09" />
 
 - **SCADA MAPS** (Mitsubishi Adroit Process Suite):
@@ -24,21 +31,22 @@
 The Factory mimics the industrial processing of parts.
 The workstation used has binary controls.
 - Control is performed using valves (coils on the valves) that supply air to the actuators that set them in motion.
-  - On/off type valves are used.
+- On/off type valves are used.
     
-  #### Solenoid valves:
-  Electromechanical devices engineered to control the flow of liquids or gases automatically. Instead of requiring a human operator to physically turn a handle or adjust a wheel, a solenoid valve uses an electrical signal to open, close, or regulate fluid lines in milliseconds.
-  ##### How it works:
+#### Solenoid valves:
+Electromechanical devices engineered to control the flow of liquids or gases automatically. Instead of requiring a human operator to physically turn a handle or adjust a wheel, a solenoid valve uses an electrical signal to open, close, or regulate fluid lines in milliseconds.
+  
+##### How it works:
   (Sources: ECAS on YouTube)
   
-  <img width="1438" height="808" alt="image" src="https://github.com/user-attachments/assets/38f6d123-528b-4ae2-b1ee-2b4866727bc9" />
+  <img width="600" height="337" alt="image" src="https://github.com/user-attachments/assets/38f6d123-528b-4ae2-b1ee-2b4866727bc9" />
   
-    1. When the valve is at rest and no electrical current is running through the coil, the valve is in its de-energised state. In a standard normally closed valve, the return spring pushes the plunger downward. The seal at the bottom of the plunger presses tightly against the valve's inner opening (orifice). The pressure of the incoming fluid often assists in holding the seal shut. As long as no power is applied, the valve remains completely sealed and no fluid or gas can pass through.
-    2. An electric current (direct or alternating) is delivered to the solenoid coil.
-    3. Electricity flows through the copper windings and generates a concentrated electromagnetic field through the centre of the coil. This magnetic field acts as a powerful magnet, attracting the ferromagnetic plunger.
-    4. The magnetic force overcomes the tension of the return spring, pulling the plunger upward toward the top of the tube.
-    5. As the plunger snaps upward, it lifts the seal off the orifice. This clears the central passageway, allowing the fluid or gas to flow through the valve body from the inlet port to the outlet port.
-    6. As long as electric power is continuously supplied to the coil, the magnetic field remains active, holding the plunger in the open position against the compressed spring.
+  1. When the valve is at rest and no electrical current is running through the coil, the valve is in its de-energised state. In a standard normally closed valve, the return spring pushes the plunger downward. The seal at the bottom of the plunger presses tightly against the valve's inner opening (orifice). The pressure of the incoming fluid often assists in holding the seal shut. As long as no power is applied, the valve remains completely sealed and no fluid or gas can pass through.
+  2. An electric current (direct or alternating) is delivered to the solenoid coil.
+  3. Electricity flows through the copper windings and generates a concentrated electromagnetic field through the centre of the coil. This magnetic field acts as a powerful magnet, attracting the ferromagnetic plunger.
+  4. The magnetic force overcomes the tension of the return spring, pulling the plunger upward toward the top of the tube.
+  5. As the plunger snaps upward, it lifts the seal off the orifice. This clears the central passageway, allowing the fluid or gas to flow through the valve body from the inlet port to the outlet port.
+  6. As long as electric power is continuously supplied to the coil, the magnetic field remains active, holding the plunger in the open position against the compressed spring.
        
 - The measurement is performed by sensors confirming the position of the item being transported (binary signal).
 
