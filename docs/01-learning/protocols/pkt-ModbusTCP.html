@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>modbus-tcp – Verbose Potato</title>
+<title>pkt-modbustcp – Verbose Potato</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -117,45 +117,33 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="modbustcp-modbus-tcpip" class="level1">
-<h1>Modbus/TCP (Modbus TCP/IP)</h1>
-<ul>
-<li><p>Modbus messaging structure embedded inside a TCP/IP packet,</p></li>
-<li><p>Allows industrial devices like PLCs, I/O modules and Modbus gateways to communicate over Ethernet-based or intranet or internet networks</p></li>
-<li><p>De facto automation standard</p>
-<ul>
-<li><strong>PLC:</strong> a solid-state control system that has a user-programmable memory for storing instructions for the purpose of implementing specific functions such as I/O control, logic, timing, counting, three mode (PID) control, communication, arithmetic, and data and file processing (Sources: NIST GLOSSARY)</li>
-</ul></li>
-</ul>
-<section id="modbus-tcpip-communication-model" class="level2">
-<h2 class="anchored" data-anchor-id="modbus-tcpip-communication-model">Modbus TCP/IP Communication Model</h2>
-<p>Client (master) sends request to server (slave) devices to read or write data, and the server performs the action and responds back to the client.</p>
-<section id="modbus-tcpip-addressing" class="level3">
-<h3 class="anchored" data-anchor-id="modbus-tcpip-addressing">1. Modbus TCP/IP Addressing</h3>
-<p>Physical node addresses (server IDs) used in <strong>serial networks</strong> are replaced by a combination of an IP address and an optional Unit ID. - A client routes commands to specific devices by first targeting a unique IP address on the Ethernet network and then specifies a particular server through a Unit ID, once the data arrives. - Unit ID can serve two distinct purposes: ensuring a protocol compliance and routing to serial devices.</p>
-<section id="direct-connections" class="level4">
-<h4 class="anchored" data-anchor-id="direct-connections">Direct Connections</h4>
-<p>When directly connecting Ethernet-native devices, the IP address already provides a unique, direct path between them, making the Unit ID redundant because there is only one device at each location. In practice, the Unit ID is typically set to 0 or 255 to ensure compliance with the Modbus TCP/IP specification. - Using these reserved values ensures the message is processed by the main controller’s application layer rather than being discarded or misinterpreted as an invalid sub-network address. - Most modern Ethernet-native servers are programmed to ignore the Unit ID entirely but setting it to 255 remains the industry-standard safe value for direct communication.</p>
-</section>
-<section id="modbus-gateways-and-unit-id" class="level4">
-<h4 class="anchored" data-anchor-id="modbus-gateways-and-unit-id">Modbus Gateways and Unit ID</h4>
-<p>Unit ID acts as a translator between a multi-device serial network and Modbus TCP/IP. - Gateway is assigned a single IP address that represents the entire serial chain. - To target a specific device, the client uses Unit IDs 1 to 247. - This allows each serial server to be individually represented and <em>polled</em> through the same Ethernet connection, using the Unit ID to uniquely identify the destination once the packet reaches the gateway.</p>
+<section id="read-input-registers-fc04" class="level1">
+<h1>Read Input Registers (FC04)</h1>
+<p>This command is requesting the content of analog input register from the slave device.</p>
+<section id="input-registers-for-live-data-look-but-dont-touch" class="level2">
+<h2 class="anchored" data-anchor-id="input-registers-for-live-data-look-but-dont-touch">Input registers: for live data, look but don’t touch</h2>
+<p>Input registers are read-only. They hold real-time measurement values reported by the sensor. (Sources: Seven Sensor)</p>
 </section>
 </section>
-<section id="modbus-tcpip-polling" class="level3">
-<h3 class="anchored" data-anchor-id="modbus-tcpip-polling">2. Modbus TCP/IP Polling</h3>
-<p><strong>Polling:</strong> the process of repeatedly sampling the status of external devices by a client program (Sources: TechTarget)</p>
-<p>This protocol allows for simultaneous communication by opening multiple TCP sockets at once, so a client can poll several different IP addresses at once rather than waiting for each device in a row But every server has a physical hardware limit on how many sockets it can maintain. (If a client attempts to open more sockets than the hardware supports, server will reject the connection.)</p>
-<p>Because the protocol itself operates on a request-response basis, every command sent by the client must have a corresponding response from the server to confirm the transaction regardless of how many sockets are open.////////</p>
-<section id="polling-through-a-modbus-gateway" class="level4">
-<h4 class="anchored" data-anchor-id="polling-through-a-modbus-gateway">Polling through a Modbus Gateway</h4>
-<p>While a client can poll multiple gateways simultaneously, the devices behind a single gateway must still be polled sequentially. Because the gateway must translate the Ethernet message back into a serial broadcast, the RS-485 daisy chain still uses half-duplex (one-at-a-time) communication. If a client sends multiple requests to different Unit IDs on the same gateway too quickly, the gateway will buffer those requests and send them out one by one.</p>
-<p>(Sources: Real Time Automation)</p>
+<section id="write-multiple-registers-fc16" class="level1">
+<h1>Write Multiple Registers (FC16)</h1>
+<p>This command is writing the contents of two analog output holding registers to the slave device. Presets a block of <strong>holding registers</strong> to specific values (Sources: Intro to Modbus)</p>
+<section id="holding-registers-settings-calibration-control" class="level2">
+<h2 class="anchored" data-anchor-id="holding-registers-settings-calibration-control">Holding registers: settings, calibration &amp; control</h2>
+</section>
+</section>
+<section id="port-502" class="level1">
+<h1>Port 502</h1>
+<p>Specifically reserved for Modbus applications. A Modbus server will listen for communication on port 502.</p>
+<p>When a Modbus client wants to send a message to a remote Modbus server, it opens a connection with remote port 502. As soon as a connection is established, the same connection can be used to transfer user data in either direction between a client and server. A client and server may also establish several TCP/IP connections simultaneously.</p>
+<p>When a connection is established, all the transmissions that are part of that connection are associated with a <strong>Connection ID (CID)</strong>. If both directions involved, two CIDs are assigned.</p>
+<p><em>[frame 23] 0.167339 192.168.127.20 192.168.127.21 Modbus/TCP 66 Query: Trans: 37888; Unit: 0, Func: 4: Read Input Registers</em></p>
+<p><em>[frame 25] 0.176788 192.168.127.21 192.168.127.20 Modbus/TCP 77 Response: Trans: 37888; Unit: 0, Func: 4: Read Input Registers</em></p>
+<p><em>[frame 35861] 256.166266 192.168.127.20 192.168.127.21 Modbus/TCP 66 Query: Trans: 37888; Unit: 0, Func: 4: Read Input Registers</em></p>
+<p><em>[frame 35863] 256.174689 192.168.127.21 192.168.127.20 Modbus/TCP 77 Response: Trans: 37888; Unit: 0, Func: 4: Read Input Registers</em></p>
+<p>(Sources: Simply Modbus)</p>
 
 
-</section>
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->

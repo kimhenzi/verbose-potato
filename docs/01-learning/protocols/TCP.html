@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>pkt-modbus-tcp – Verbose Potato</title>
+<title>tcp – Verbose Potato</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -117,18 +117,11 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="read-input-registers-fc04" class="level1">
-<h1>Read Input Registers (FC04)</h1>
-<p>This command is requesting the content of analog input register from the slave device.</p>
-</section>
-<section id="write-multiple-registers-fc16" class="level1">
-<h1>Write Multiple Registers (FC16)</h1>
-<p>This command is writing the contents of two analog output holding registers to the slave device.</p>
-<p><em>[frame 23] 0.167339 192.168.127.20 192.168.127.21 Modbus/TCP 66 Query: Trans: 37888; Unit: 0, Func: 4: Read Input Registers</em></p>
-<p><em>[frame 25] 0.176788 192.168.127.21 192.168.127.20 Modbus/TCP 77 Response: Trans: 37888; Unit: 0, Func: 4: Read Input Registers</em></p>
-<p><em>[frame 35861] 256.166266 192.168.127.20 192.168.127.21 Modbus/TCP 66 Query: Trans: 37888; Unit: 0, Func: 4: Read Input Registers</em></p>
-<p><em>[frame 35863] 256.174689 192.168.127.21 192.168.127.20 Modbus/TCP 77 Response: Trans: 37888; Unit: 0, Func: 4: Read Input Registers</em></p>
-<p>(Sources: Simply Modbus)</p>
+<section id="tcp-protocol-502" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-protocol-502">TCP Protocol 502</h2>
+<p>The complete Modbus TCP/IP Application Data Unit is embedded into the data field of a standard TCP frame and sent via TCP to well-known system port 502, which is specifically reserved for Modbus applications.</p>
+<p>Modbus TCP/IP clients and servers listen and receive Modbus message over Ethernet via port 502.</p>
+<p>(Sources: Introduction to Modbus TCP/IP)</p>
 
 
 </section>

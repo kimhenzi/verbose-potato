@@ -1,7 +1,9 @@
 # SSDP (Simple Service Discovery Protocol)
+
 A network protocol, associated with the Internet protocol suite for advertisement and discovery of network services and presence information.
 It accomplishes this without the assistance of server-based configuration mechanisms, such as DHCP (Dynamic Host Configuration Protocol) or DNS (Domain Name System).
 SSDP is the basis of the discovery protocol of **Universal Plug and Play (UPnP)** and is intended for use in residential or small office environments.
+
 - **Universal Plug and Play (UPnP):** Permits networked devices to seamlessly discover each other's presence on the network and establish functional network services.
   - UPnP assumes the network runs IP, and then uses HTTP on top of IP to provide device/service description, actions, data transfer and event notification.
   - Device search requests and advertisements are supported by running HTTP on top of UDP (port 1900) using multicast (known as HTTPMU).
@@ -18,5 +20,11 @@ Services are announced by the hosting system with multicast addressing to a spec
 
 <img width="522" height="397" alt="image" src="https://github.com/user-attachments/assets/5d29eb6b-bc93-4e83-add7-0c9cfdf0602b" />
 
+### M-SEARCH
+
+SSDP uses the HTTP method *NOTIFY* to announce the establishment or withdrawal of services (presence) information to the multicast group.
+
+A client that wishes to discover available services on a network uses method **M-SEARCH**
+Responses to such search requests are sent via unicast addressing to the originating address and port number of the multicast request.
 
 (Sources: Wikipedia)

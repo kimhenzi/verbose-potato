@@ -119,16 +119,30 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="ssdp-simple-service-discovery-protocol" class="level1">
 <h1>SSDP (Simple Service Discovery Protocol)</h1>
-<p>A network protocol, associated with the Internet protocol suite for advertisement and discovery of network services and presence information. It accomplishes this without the assistance of server-based configuration mechanisms, such as DHCP (Dynamic Host Configuration Protocol) or DNS (Domain Name System). SSDP is the basis of the discovery protocol of <strong>Universal Plug and Play (UPnP)</strong> and is intended for use in residential or small office environments. - <strong>Universal Plug and Play (UPnP):</strong> Permits networked devices to seamlessly discover each other’s presence on the network and establish functional network services. - UPnP assumes the network runs IP, and then uses HTTP on top of IP to provide device/service description, actions, data transfer and event notification. - Device search requests and advertisements are supported by running HTTP on top of UDP (port 1900) using multicast (known as HTTPMU). - Response to search requests are also sent over UDP, but are instead sent using unicast (known as HTTPU) - UPnP devices are plug-and-play in that, when connected to a network, they automatically establish working configurations with other devices, removing the need for users to manually configure and add devices through IP addresses.</p>
+<p>A network protocol, associated with the Internet protocol suite for advertisement and discovery of network services and presence information. It accomplishes this without the assistance of server-based configuration mechanisms, such as DHCP (Dynamic Host Configuration Protocol) or DNS (Domain Name System). SSDP is the basis of the discovery protocol of <strong>Universal Plug and Play (UPnP)</strong> and is intended for use in residential or small office environments.</p>
+<ul>
+<li><strong>Universal Plug and Play (UPnP):</strong> Permits networked devices to seamlessly discover each other’s presence on the network and establish functional network services.
+<ul>
+<li>UPnP assumes the network runs IP, and then uses HTTP on top of IP to provide device/service description, actions, data transfer and event notification.</li>
+<li>Device search requests and advertisements are supported by running HTTP on top of UDP (port 1900) using multicast (known as HTTPMU).</li>
+<li>Response to search requests are also sent over UDP, but are instead sent using unicast (known as HTTPU)</li>
+<li>UPnP devices are plug-and-play in that, when connected to a network, they automatically establish working configurations with other devices, removing the need for users to manually configure and add devices through IP addresses.</li>
+</ul></li>
+</ul>
 <section id="protocol-transport-and-addressing" class="level2">
 <h2 class="anchored" data-anchor-id="protocol-transport-and-addressing">Protocol transport and addressing</h2>
 <p>SSDP is a text-based protocol based on HTTPU, which uses <strong>UDP</strong> as the underlying transport protocol.</p>
 <p><img width="651" height="318" alt="image" src="https://github.com/user-attachments/assets/e5224c69-2b19-43c7-a279-9bf0b01cfb5d"></p>
 <p>Services are announced by the hosting system with multicast addressing to a specifically designated IP multicast address at UDP port number 1900.</p>
 <p><img width="522" height="397" alt="image" src="https://github.com/user-attachments/assets/5d29eb6b-bc93-4e83-add7-0c9cfdf0602b"></p>
+<section id="m-search" class="level3">
+<h3 class="anchored" data-anchor-id="m-search">M-SEARCH</h3>
+<p>SSDP uses the HTTP method <em>NOTIFY</em> to announce the establishment or withdrawal of services (presence) information to the multicast group.</p>
+<p>A client that wishes to discover available services on a network uses method <strong>M-SEARCH</strong> Responses to such search requests are sent via unicast addressing to the originating address and port number of the multicast request.</p>
 <p>(Sources: Wikipedia)</p>
 
 
+</section>
 </section>
 </section>
 
