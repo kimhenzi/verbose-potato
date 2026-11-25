@@ -14,46 +14,39 @@
     "text": "Lab Diagram"
   },
   {
-    "objectID": "02-analysis/Cyber4OT_004.html",
-    "href": "02-analysis/Cyber4OT_004.html",
-    "title": "Attack methods",
+    "objectID": "02-analysis/Cyber4OT_009.html",
+    "href": "02-analysis/Cyber4OT_009.html",
+    "title": "TCP SYN flood",
     "section": "",
-    "text": "(README.txt) Nmap ping scan of test bed ICS network (Industrial Control System network) using various modes: from Insane (-T5) to Sneaky (-T1). Traffic gathered from central switch. If scan is very long, trace is stopped after 10 minutes."
+    "text": "Sudden spikes in incoming SYN packets to SCADA MAPS system - Filter used: tcp.flags.syn == 1 && tcp.flags.ack == 0\n\n\n\n\n22392  26.607391   192.168.127.126 192.168.127.6   TCP 60  61202 → 445 [SYN] Seq=0 Win=1024 Len=0 MSS=1460\n22395  26.607760   192.168.127.6   192.168.127.126 TCP 60  445 → 61202 [SYN, ACK] Seq=0 Ack=1 Win=64240 Len=0 MSS=1460 #### SYN-ACK - It tells the client that the endpoint is listening and that the connection can proceed to the final ACK, so it is a core signal in normal session establishment as well as in reconnaissance. - Because the exchange happens before application data flows, defenders often treat SYN-ACK traffic as an early indicator of reachable services, exposed ports, and connection attempts that merit closer inspection.\n\n\nWhen a service returns SYN-ACK, it confirms that something is reachable at the network and transport layers. That makes the handshake useful to administrators, but also to attackers who are mapping live hosts, confirming open ports, or identifying services that respond consistently under scan pressure.\n\n\n\nSynAck is a low-level control point that attackers can use for both discovery and disruption. A service that answers too predictably to scanning can expose its presence, while a service that must maintain many half-open connections can be pressured into wasting resources. - Failure mechanism: Attackers exploit the gap between SYN and the final ACK to confirm reachability, map exposed services, or consume server-side connection state before a session is established. - Impact: The result can be service enumeration, noisy but effective reconnaissance, connection table exhaustion, reduced availability, and a weaker ability to distinguish benign traffic from hostile probing. (Sources: nhimg.org/glossary/synack/)\n22396  26.608189   192.168.127.126 192.168.127.6   TCP 60  61202 → 445 [RST] Seq=1 Win=0 Len=0 #### TCP SYN (Stealth) scan SYN scan is the default and most popular scan option. - Can be performed quickly, scanning thousands of ports per second on a fast network not hampered by intrusive firewalls. - SYN scan is relatively unobtrusive and stealthy, since it never completes TCP connections. (SYN scan may be requested by passing the -sS option to Nmap.)\nIf the SYN/ACK is ignored completely, target will assume it was dropped and keep re-sending it. The proper response is, since we don’t want to make a full connection, is a RST packet. This tells the target to forget about (reset) the attempted connection. Because the three-way handshake is never completed, SYN scan is sometimes called half-open scanning. (Sources: Nmap)\n\n\n\nPort 445 is a network port used by the SMB protocol that is integral to accessing shared resources on a network. SMB operatesat the application layer and allows nodes within a network to communicate, share files, and utilise shared services like printers and access to shared directories. Its role is foundational for intra-network communication and resource sharing, particularly in Windows-operated network environments. (Sources: SecurityScorecard)"
   },
   {
-    "objectID": "02-analysis/Cyber4OT_004.html#nmap-timing-templates--t",
-    "href": "02-analysis/Cyber4OT_004.html#nmap-timing-templates--t",
-    "title": "Attack methods",
-    "section": "Nmap Timing Templates (-T)",
-    "text": "Nmap Timing Templates (-T)\nAllow user to specify how aggressive they wish to be, while leaving Nmap to pick the exact timing values. (Sources: Nmap.org)\n\nTemplate names: paranoid (0), sneaky (1), polite (2), normal (3), aggressive (4), and insane (5)\n\nThe first two are for IDS evasion\nPolite (2) slows down the scan to use less bandwidth and target machine resources\nAggressive (4) speeds scans up by making the assumption that you are on a reasonably fast and reliable network.\nInsane (5) assumes that you are on an extraordinarily fast network or ar willing to sacrifice some accuracy for speed."
+    "objectID": "02-analysis/Cyber4OT_009.html#observation",
+    "href": "02-analysis/Cyber4OT_009.html#observation",
+    "title": "TCP SYN flood",
+    "section": "",
+    "text": "22392  26.607391   192.168.127.126 192.168.127.6   TCP 60  61202 → 445 [SYN] Seq=0 Win=1024 Len=0 MSS=1460\n22395  26.607760   192.168.127.6   192.168.127.126 TCP 60  445 → 61202 [SYN, ACK] Seq=0 Ack=1 Win=64240 Len=0 MSS=1460 #### SYN-ACK - It tells the client that the endpoint is listening and that the connection can proceed to the final ACK, so it is a core signal in normal session establishment as well as in reconnaissance. - Because the exchange happens before application data flows, defenders often treat SYN-ACK traffic as an early indicator of reachable services, exposed ports, and connection attempts that merit closer inspection.\n\n\nWhen a service returns SYN-ACK, it confirms that something is reachable at the network and transport layers. That makes the handshake useful to administrators, but also to attackers who are mapping live hosts, confirming open ports, or identifying services that respond consistently under scan pressure.\n\n\n\nSynAck is a low-level control point that attackers can use for both discovery and disruption. A service that answers too predictably to scanning can expose its presence, while a service that must maintain many half-open connections can be pressured into wasting resources. - Failure mechanism: Attackers exploit the gap between SYN and the final ACK to confirm reachability, map exposed services, or consume server-side connection state before a session is established. - Impact: The result can be service enumeration, noisy but effective reconnaissance, connection table exhaustion, reduced availability, and a weaker ability to distinguish benign traffic from hostile probing. (Sources: nhimg.org/glossary/synack/)\n22396  26.608189   192.168.127.126 192.168.127.6   TCP 60  61202 → 445 [RST] Seq=1 Win=0 Len=0 #### TCP SYN (Stealth) scan SYN scan is the default and most popular scan option. - Can be performed quickly, scanning thousands of ports per second on a fast network not hampered by intrusive firewalls. - SYN scan is relatively unobtrusive and stealthy, since it never completes TCP connections. (SYN scan may be requested by passing the -sS option to Nmap.)\nIf the SYN/ACK is ignored completely, target will assume it was dropped and keep re-sending it. The proper response is, since we don’t want to make a full connection, is a RST packet. This tells the target to forget about (reset) the attempted connection. Because the three-way handshake is never completed, SYN scan is sometimes called half-open scanning. (Sources: Nmap)\n\n\n\nPort 445 is a network port used by the SMB protocol that is integral to accessing shared resources on a network. SMB operatesat the application layer and allows nodes within a network to communicate, share files, and utilise shared services like printers and access to shared directories. Its role is foundational for intra-network communication and resource sharing, particularly in Windows-operated network environments. (Sources: SecurityScorecard)"
   },
   {
-    "objectID": "02-analysis/Cyber4OT_004.html#repeated-arp-requests",
-    "href": "02-analysis/Cyber4OT_004.html#repeated-arp-requests",
-    "title": "Attack methods",
-    "section": "1. Repeated ARP requests",
-    "text": "1. Repeated ARP requests\n\nFor 192.168.127.250\n\nsrc: Mitsubishi GOT2 HMI (192.168.127.24)\ndst: Broadcast\nwith intervals of two seconds\n\n\n\nFor 192.168.127.127\n\nNo response\nUDP port 1947"
-  },
-  {
-    "objectID": "02-analysis/Cyber4OT_004.html#udp-packet-54554---1947",
-    "href": "02-analysis/Cyber4OT_004.html#udp-packet-54554---1947",
-    "title": "Attack methods",
-    "section": "2. UDP packet 54554 -> 1947",
-    "text": "2. UDP packet 54554 -&gt; 1947"
-  },
-  {
-    "objectID": "01-learning/protocols/TCP.html",
-    "href": "01-learning/protocols/TCP.html",
+    "objectID": "01-learning/protocols/UDP.html",
+    "href": "01-learning/protocols/UDP.html",
     "title": "Verbose Potato",
     "section": "",
-    "text": "The complete Modbus TCP/IP Application Data Unit is embedded into the data field of a standard TCP frame and sent via TCP to well-known system port 502, which is specifically reserved for Modbus applications.\nModbus TCP/IP clients and servers listen and receive Modbus message over Ethernet via port 502.\n(Sources: Introduction to Modbus TCP/IP)"
+    "text": "UDP port 4000\nThe Internet Assigned Numbers Authority (IANA) registers port 4000 for terabase. (Sources: AuditMyPC)\n\n\nUDP port 1947\nIn practice, port 1947 belongs to Sentinel HASP(Hardware Against Software Piracy), a hardware-based software licensing system used by thousand of commercial applications worldwide.\nCommon on corporate networks, engineering workstations, and any environment where expensive specialised software is licensed per-seat.\n\nWhat Actually Runs Here\nA vendor ships their software with a USB dongle (the hardware key). When the software starts, it contacts the HASP License Manager running on your machine – or on a license server across the network – to verify the dongle is present and the license is valid. Without that confirmation, the software refuses to run. Port 1947 is the address of that conversation.\nThe protocol uses both TCP and UDP: - UDP 1947: Broadcast discovery (“Is there a license server out there?”) - TCP 1947: Once a server is found, all actual license communication moves here. (Sources: Connected Systems)"
   },
   {
-    "objectID": "01-learning/protocols/TCP.html#tcp-protocol-502",
-    "href": "01-learning/protocols/TCP.html#tcp-protocol-502",
-    "title": "Verbose Potato",
+    "objectID": "01-learning/protocols/STP.html",
+    "href": "01-learning/protocols/STP.html",
+    "title": "STP (Spanning Tree Protocol)",
     "section": "",
-    "text": "The complete Modbus TCP/IP Application Data Unit is embedded into the data field of a standard TCP frame and sent via TCP to well-known system port 502, which is specifically reserved for Modbus applications.\nModbus TCP/IP clients and servers listen and receive Modbus message over Ethernet via port 502.\n(Sources: Introduction to Modbus TCP/IP)"
+    "text": "Spanning tree is the family of IEEE 802.1 protocols that stops Ethernet frames from circling forever when switches are wired with redundant links. Every bridge exchanges small messages called BPDUs, the network elects one root bridge, and each bridge blocks just one enough ports that exactly one loop free path remains between any two points.\n(Sources: Safeguard)\n\n\n\n\nThe bridge on the network that serves as a central point in the spanning tree\n\n\n\nThe port on each device that provides the most efficient path to the device\n(Sources: Cisco Systems)"
+  },
+  {
+    "objectID": "01-learning/protocols/STP.html#root",
+    "href": "01-learning/protocols/STP.html#root",
+    "title": "STP (Spanning Tree Protocol)",
+    "section": "",
+    "text": "The bridge on the network that serves as a central point in the spanning tree\n\n\n\nThe port on each device that provides the most efficient path to the device\n(Sources: Cisco Systems)"
   },
   {
     "objectID": "01-learning/protocols/PNIO.html",
@@ -91,11 +84,46 @@
     "text": "Holding registers: settings, calibration & control"
   },
   {
+    "objectID": "01-learning/protocols/LLDP.html",
+    "href": "01-learning/protocols/LLDP.html",
+    "title": "Link Layer Discovery Protocol",
+    "section": "",
+    "text": "Link Layer Discovery Protocol\nUsed by network devices for advertising their identity, capabilities, and neighbours on a local area network based on IEEE 802 technology, principally wired Ethernet.\n(Sources: Wikipedia)"
+  },
+  {
+    "objectID": "01-learning/protocols/CTP.html",
+    "href": "01-learning/protocols/CTP.html",
+    "title": "Loop (Ethernet Configuration Testing Protocol, ECTP)",
+    "section": "",
+    "text": "Functialnality of the protocol is similar to that offered by ping but it operates at the data link layer (Layer 2) as opposed to the network layer.\n(Sources: Wikipeia)\n\n\nThe goals of the Ethernet Configuration Testing Protocol specification are:\n\nProvide the required functions to enable all forms of multi-station loop tests that are necessary to diagnose a station’s ability to communicate.\nAllow each station to assume the responsibility to diagnose its own ability to communicate.\nAllow a network management station to diagnose any other station’s ability to communicate.\nMinimise processing and memory requirements.\n\n\n\nA station using the Configuration Testing Protocol can ascertain the following: - The ability to communicate with a specific remote station. - The ability to aommunicate with some remote station. - With the help of a third party station, the ability to hear or to be heard by a specific station.\n(Sources: mit.edu/people/jhawk/ctp.html)"
+  },
+  {
+    "objectID": "01-learning/protocols/CTP.html#goals",
+    "href": "01-learning/protocols/CTP.html#goals",
+    "title": "Loop (Ethernet Configuration Testing Protocol, ECTP)",
+    "section": "",
+    "text": "The goals of the Ethernet Configuration Testing Protocol specification are:\n\nProvide the required functions to enable all forms of multi-station loop tests that are necessary to diagnose a station’s ability to communicate.\nAllow each station to assume the responsibility to diagnose its own ability to communicate.\nAllow a network management station to diagnose any other station’s ability to communicate.\nMinimise processing and memory requirements.\n\n\n\nA station using the Configuration Testing Protocol can ascertain the following: - The ability to communicate with a specific remote station. - The ability to aommunicate with some remote station. - With the help of a third party station, the ability to hear or to be heard by a specific station.\n(Sources: mit.edu/people/jhawk/ctp.html)"
+  },
+  {
     "objectID": "01-learning/lab-diagram.html#three-control-processes",
     "href": "01-learning/lab-diagram.html#three-control-processes",
     "title": "Lab Diagram",
     "section": "Three Control Processes",
     "text": "Three Control Processes\n\n1. High-speed magnetic levitation process (Maglev)\nMaglev (magnetic levitation): a method by which an object is suspended with no support other than magnetic fields (Sources: Wikipedia) - The Maglev system is nonlinear, open-loop, unstable, time-varying, and frictionless - Basic principle of operation is to apply the voltage to an electromagnet to keep a ferromagnetic sphere levitated. - The controller maintains the equilibrium state of two forces (the gravitational and electromagnetic) to keep the sphere at a desired distance from the magnet. - The Process is extremely fast; the controller’s sample time should be as short as 1 ms. (Sources: OT_testbed_description.pdf)\n\n\n2. MPS FESTO workstation (Factory)\nThe Factory mimics the industrial processing of parts. The workstation used has binary controls. - Control is performed using valves (coils on the valves) that supply air to the actuators that set them in motion. - On/off type valves are used.\n\nSolenoid valves:\nElectromechanical devices engineered to control the flow of liquids or gases automatically. Instead of requiring a human operator to physically turn a handle or adjust a wheel, a solenoid valve uses an electrical signal to open, close, or regulate fluid lines in milliseconds.\n\nHow it works:\n(Sources: ECAS on YouTube)\n\n\nWhen the valve is at rest and no electrical current is running through the coil, the valve is in its de-energised state. In a standard normally closed valve, the return spring pushes the plunger downward. The seal at the bottom of the plunger presses tightly against the valve’s inner opening (orifice). The pressure of the incoming fluid often assists in holding the seal shut. As long as no power is applied, the valve remains completely sealed and no fluid or gas can pass through.\nAn electric current (direct or alternating) is delivered to the solenoid coil.\nElectricity flows through the copper windings and generates a concentrated electromagnetic field through the centre of the coil. This magnetic field acts as a powerful magnet, attracting the ferromagnetic plunger.\nThe magnetic force overcomes the tension of the return spring, pulling the plunger upward toward the top of the tube.\nAs the plunger snaps upward, it lifts the seal off the orifice. This clears the central passageway, allowing the fluid or gas to flow through the valve body from the inlet port to the outlet port.\nAs long as electric power is continuously supplied to the coil, the magnetic field remains active, holding the plunger in the open position against the compressed spring.\n\n\nThe measurement is performed by sensors confirming the position of the item being transported (binary signal).\n\n\n\n\n\n3. Thermal stand (Heating-cooling)\nThe user influences the temperature distribution in the facility through controllable fans and heaters. The test bed can be controlled via an automation system using the Modbus communication protocol.\nThe thermal stand has six manipulated variables: Pulse Width Modulation (PWM) signals that control the fans.\n\nPulse Width Modulation: any method of representing a signal as a rectangular wave with a varying duty cycle. (Sources: Wikipedia)\n\nDuty cycle: the proportion of ‘on’ time to the regular interval or ‘period’ of time\n\nExpressed in percent, 100% being fully on; when a digital signal is on half of the time and off the other half of the time, the digital signal has a duty cycle of 50% and resembles a “square” wave. The process has seven measured output variables: temperatures in different parts of the system.\n\n\n\nThe temperature sensors communicate internally using the OneWire bus, while current and voltage measurements use dedicated electronic devices.\nAll inputs and output signals are available via the Modbus protocol."
+  },
+  {
+    "objectID": "01-learning/protocols/CDP.html",
+    "href": "01-learning/protocols/CDP.html",
+    "title": "CDP Cisco Discovery Protocol",
+    "section": "",
+    "text": "Used for collecting directly connected neighbour device information.\n\n\n(Sources: Cisco Learning Network)"
+  },
+  {
+    "objectID": "01-learning/protocols/CDP.html#how-cdp-works",
+    "href": "01-learning/protocols/CDP.html#how-cdp-works",
+    "title": "CDP Cisco Discovery Protocol",
+    "section": "",
+    "text": "(Sources: Cisco Learning Network)"
   },
   {
     "objectID": "01-learning/protocols/ModbusTCP.html",
@@ -140,17 +168,52 @@
     "text": "SSDP is a text-based protocol based on HTTPU, which uses UDP as the underlying transport protocol.\n\nServices are announced by the hosting system with multicast addressing to a specifically designated IP multicast address at UDP port number 1900.\n\n\n\nSSDP uses the HTTP method NOTIFY to announce the establishment or withdrawal of services (presence) information to the multicast group.\nA client that wishes to discover available services on a network uses method M-SEARCH Responses to such search requests are sent via unicast addressing to the originating address and port number of the multicast request.\n(Sources: Wikipedia)"
   },
   {
-    "objectID": "01-learning/protocols/UDP.html",
-    "href": "01-learning/protocols/UDP.html",
+    "objectID": "01-learning/protocols/TCP.html",
+    "href": "01-learning/protocols/TCP.html",
     "title": "Verbose Potato",
     "section": "",
-    "text": "UDP port 4000\nThe Internet Assigned Numbers Authority (IANA) registers port 4000 for terabase. (Sources: AuditMyPC)\n\n\nUDP port 1947\nIn practice, port 1947 belongs to Sentinel HASP(Hardware Against Software Piracy), a hardware-based software licensing system used by thousand of commercial applications worldwide.\nCommon on corporate networks, engineering workstations, and any environment where expensive specialised software is licensed per-seat.\n\nWhat Actually Runs Here\nA vendor ships their software with a USB dongle (the hardware key). When the software starts, it contacts the HASP License Manager running on your machine – or on a license server across the network – to verify the dongle is present and the license is valid. Without that confirmation, the software refuses to run. Port 1947 is the address of that conversation.\nThe protocol uses both TCP and UDP: - UDP 1947: Broadcast discovery (“Is there a license server out there?”) - TCP 1947: Once a server is found, all actual license communication moves here. (Sources: Connected Systems)"
+    "text": "The complete Modbus TCP/IP Application Data Unit is embedded into the data field of a standard TCP frame and sent via TCP to well-known system port 502, which is specifically reserved for Modbus applications.\nModbus TCP/IP clients and servers listen and receive Modbus message over Ethernet via port 502.\n(Sources: Introduction to Modbus TCP/IP)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-protocol-502",
+    "href": "01-learning/protocols/TCP.html#tcp-protocol-502",
+    "title": "Verbose Potato",
+    "section": "",
+    "text": "The complete Modbus TCP/IP Application Data Unit is embedded into the data field of a standard TCP frame and sent via TCP to well-known system port 502, which is specifically reserved for Modbus applications.\nModbus TCP/IP clients and servers listen and receive Modbus message over Ethernet via port 502.\n(Sources: Introduction to Modbus TCP/IP)"
+  },
+  {
+    "objectID": "02-analysis/Cyber4OT_004.html",
+    "href": "02-analysis/Cyber4OT_004.html",
+    "title": "Attack methods",
+    "section": "",
+    "text": "(README.txt) Nmap ping scan of test bed ICS network (Industrial Control System network) using various modes: from Insane (-T5) to Sneaky (-T1). Traffic gathered from central switch. If scan is very long, trace is stopped after 10 minutes."
+  },
+  {
+    "objectID": "02-analysis/Cyber4OT_004.html#nmap-timing-templates--t",
+    "href": "02-analysis/Cyber4OT_004.html#nmap-timing-templates--t",
+    "title": "Attack methods",
+    "section": "Nmap Timing Templates (-T)",
+    "text": "Nmap Timing Templates (-T)\nAllow user to specify how aggressive they wish to be, while leaving Nmap to pick the exact timing values. (Sources: Nmap.org)\n\nTemplate names: paranoid (0), sneaky (1), polite (2), normal (3), aggressive (4), and insane (5)\n\nThe first two are for IDS evasion\nPolite (2) slows down the scan to use less bandwidth and target machine resources\nAggressive (4) speeds scans up by making the assumption that you are on a reasonably fast and reliable network.\nInsane (5) assumes that you are on an extraordinarily fast network or ar willing to sacrifice some accuracy for speed."
+  },
+  {
+    "objectID": "02-analysis/Cyber4OT_004.html#repeated-arp-requests",
+    "href": "02-analysis/Cyber4OT_004.html#repeated-arp-requests",
+    "title": "Attack methods",
+    "section": "1. Repeated ARP requests",
+    "text": "1. Repeated ARP requests\n\nFor 192.168.127.250\n\nsrc: Mitsubishi GOT2 HMI (192.168.127.24)\ndst: Broadcast\nwith intervals of two seconds\n\n\n\nFor 192.168.127.127\n\nNo response\nUDP port 1947"
+  },
+  {
+    "objectID": "02-analysis/Cyber4OT_004.html#udp-packet-54554---1947",
+    "href": "02-analysis/Cyber4OT_004.html#udp-packet-54554---1947",
+    "title": "Attack methods",
+    "section": "2. UDP packet 54554 -> 1947",
+    "text": "2. UDP packet 54554 -&gt; 1947"
   },
   {
     "objectID": "02-analysis/Devices.html",
     "href": "02-analysis/Devices.html",
     "title": "Devices",
     "section": "",
-    "text": "Devices\nDevices | IP Address | MAC Address | Info | Port |\n——- | ———- | ———– | —- | . |\nDell_a5:8b:6a | 192.168.127.6 | 84:2b:2b:a5:8b:6a | SCADA MAPS system | tcp 53812 |\nMitsubishiEl_2d:ba:c1 | . | 28:e9:8e:2d:ba:c1 | . | . |\nMitsubishiEl_bc:51:29 | 192.168.127.20 | 58:52:8a:bc:51:29 | PLC1 (FX5U) (ModbusTCP client)| . |\nMitsubishiEl_bc:51:2b | 192.168.127.21 | 58:52:8a:bc:51:2b | PLC2 (FX5U) (ModbusTCP server)| . |\nMitsubishiEl_e0:04:e2 | 192.168.127.24 | . | Mitsubishi GOT2 HMI | . |\nMitsubishiEl_e0:69:ce | 192.168.127.33 | . | Mitsubishi GOT3 HMI | . |\nSiemensIndus_a1:c1:a6 | 192.168.127.11 | . | S7-1200 V4 | . |\nRockwellAuto_05:29:85 | . | e4:90:69:05:29:85 | . | . |"
+    "text": "Devices\nDevices | IP Address | MAC Address | Info | Port |\n——- | ———- | ———– | —- | . |\nDell_a5:8b:6a | 192.168.127.6 | 84:2b:2b:a5:8b:6a | SCADA MAPS system | tcp 53812 |\nMitsubishiEl_2d:ba:c1 | . | 28:e9:8e:2d:ba:c1 | . | . |\nSiemensNumer_0b:27:11 | 192.168.127.10 | 00:1c:06:0b:27:11 | . | . |\nSiemensIndus_a1:c1:a6 | 192.168.127.11 | . | S7-1200 V4 | . |\nSiemensIndus_03:bc:0a | 192.168.127.13 | e0:dc:a0:03:bc:0a | . | .|\nMitsubishiEl_bc:51:29 | 192.168.127.20 | 58:52:8a:bc:51:29 | PLC1 (FX5U) (ModbusTCP client)| . |\nMitsubishiEl_bc:51:2b | 192.168.127.21 | 58:52:8a:bc:51:2b | PLC2 (FX5U) (ModbusTCP server)| . |\nMitsubishiEl_f4:dc:5d | 192.168.127.23 | 58:52:8a:f4:dc:5d | . | . |\nMitsubishiEl_e0:04:e2 | 192.168.127.24 | . | Mitsubishi GOT2 HMI | . |\nRockwellAuto_05:29:80 | . | e4:90:69:05:29:80 | Switch | . |\nRockwellAuto_05:29:85 | . | e4:90:69:05:29:85 | Switch | . |\nMitsubishiEl_22:5c:dd | 192.168.127.30 | 10:4b:46:22:5c:dd | . | . |\nMitsubishiEl_2d:ba:c1 | 192.168.127.31 | 28:e9:8e:2d:ba:c1 | . | . |\nMitsubishiEl_e0:69:ce | 192.168.127.33 | 38:e0:8e:e0:69:ce | Mitsubishi GOT3 HMI | . |\n(possible attacker) | 192.168.127.126 | 52:5d:c9:36:7e:c6 | performed nmap | . |\n\n\nAddresses unsolved (multiple requests)\n\n169.254.255.255\n192.168.127.9\n192.168.127.250"
   }
 ]
