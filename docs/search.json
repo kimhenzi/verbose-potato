@@ -14,6 +14,27 @@
     "text": "Lab Diagram"
   },
   {
+    "objectID": "02-analysis/S7-1200-V3.html",
+    "href": "02-analysis/S7-1200-V3.html",
+    "title": "Open Ports (192.168.127.10)",
+    "section": "",
+    "text": "tcp.flags.reset == 1\n\n\n\n\nNumber\nProtocol\nInformation\n\n\n\n\n102\nTCP\nISO Transport Service"
+  },
+  {
+    "objectID": "02-analysis/S7-1200-V3.html#filters-used",
+    "href": "02-analysis/S7-1200-V3.html#filters-used",
+    "title": "Open Ports (192.168.127.10)",
+    "section": "",
+    "text": "tcp.flags.reset == 1\n\n\n\n\nNumber\nProtocol\nInformation\n\n\n\n\n102\nTCP\nISO Transport Service"
+  },
+  {
+    "objectID": "02-analysis/Cyber4OT_078.html",
+    "href": "02-analysis/Cyber4OT_078.html",
+    "title": "Verbose Potato",
+    "section": "",
+    "text": "20907  24.857691   192.168.127.6   192.168.127.127 BROWSER 243 Host Announcement DESKTOP-R89VK5R, Workstation, Server, NT Workstation"
+  },
+  {
     "objectID": "02-analysis/Cyber4OT_009.html",
     "href": "02-analysis/Cyber4OT_009.html",
     "title": "TCP SYN flood",
@@ -30,9 +51,9 @@
   {
     "objectID": "01-learning/protocols/UDP.html",
     "href": "01-learning/protocols/UDP.html",
-    "title": "Verbose Potato",
+    "title": "User Datagram Protocol",
     "section": "",
-    "text": "UDP port 4000\nThe Internet Assigned Numbers Authority (IANA) registers port 4000 for terabase. (Sources: AuditMyPC)\n\n\nUDP port 1947\nIn practice, port 1947 belongs to Sentinel HASP(Hardware Against Software Piracy), a hardware-based software licensing system used by thousand of commercial applications worldwide.\nCommon on corporate networks, engineering workstations, and any environment where expensive specialised software is licensed per-seat.\n\nWhat Actually Runs Here\nA vendor ships their software with a USB dongle (the hardware key). When the software starts, it contacts the HASP License Manager running on your machine – or on a license server across the network – to verify the dongle is present and the license is valid. Without that confirmation, the software refuses to run. Port 1947 is the address of that conversation.\nThe protocol uses both TCP and UDP: - UDP 1947: Broadcast discovery (“Is there a license server out there?”) - TCP 1947: Once a server is found, all actual license communication moves here. (Sources: Connected Systems)"
+    "text": "User Datagram Protocol\nOne of the core communication protocols of the Internet protocol suite used to send messages (transported as datagrams in packets) to other hosts on an Internet Protocol (IP) network.\nWithin an IP network, UDP does not require prior communication to set up communication channels or data paths.\nUDP is a connectionless protocol, meaning that messages are sent without performing a handshake or otherwise establishing a shared connection, and each host is not expected to keep track of what it has sent.\nUDP provides checksums for data integrity, and port numbers for addressing different functions at the source and destination of the datagram.\nIt does not guarantee of successful delivery, indicate the original ordering, or detect duplication, thus exposing the user’s program to any unreliability of the underlying network.\n(Sources: Wikipedia)\n\nUDP port 4000\nThe Internet Assigned Numbers Authority (IANA) registers port 4000 for terabase. (Sources: AuditMyPC)\n\n\nUDP port 1947\nIn practice, port 1947 belongs to Sentinel HASP(Hardware Against Software Piracy), a hardware-based software licensing system used by thousand of commercial applications worldwide.\nCommon on corporate networks, engineering workstations, and any environment where expensive specialised software is licensed per-seat.\n\nWhat Actually Runs Here\nA vendor ships their software with a USB dongle (the hardware key). When the software starts, it contacts the HASP License Manager running on your machine – or on a license server across the network – to verify the dongle is present and the license is valid. Without that confirmation, the software refuses to run. Port 1947 is the address of that conversation.\nThe protocol uses both TCP and UDP: - UDP 1947: Broadcast discovery (“Is there a license server out there?”) - TCP 1947: Once a server is found, all actual license communication moves here. (Sources: Connected Systems)"
   },
   {
     "objectID": "01-learning/protocols/STP.html",
@@ -53,14 +74,21 @@
     "href": "01-learning/protocols/PNIO.html",
     "title": "PROFINET IO (PN-IO)",
     "section": "",
-    "text": "A fieldbus protocol for decentralised Input/Output. (Sources: Wireshark Wiki) ## fieldbus protocol A digital, serial, multi-drop, two-way data bus or communication path or link between low-level industrial field equipment such as sensors, transducers, actuators, local controllers, and even control room devices.\n\nMulti-Drop Bus (MDB) – what is different from general buses? A computer bus able to connect three or more devices. A process of arbitration determines which device sends information at any point. The other devices listen for the data they are intended to receive.\nMultidrop buses have the advantage of simplicity and extensibility, but their differing electrical characteristics make them relatively unsuitable for high frequency or high bandwidth applications. (Sources: Wikipedia - Multidrop bus)\nTransducer Capabilities: provide the ability for computing devices to interact directly with physical entities of interest. The two types: sensing and actuating (Sources: NIST GLOSSARY)\n\n\n\nUse of fieldbus technologies eliminates the need for point-to-point wiring between the controller and each device. A protocol is used to define messages over the fieldbus network, and each message identifies a particular sensor on the network. (Sources: NIST GLOSSARY)\n\n\n\nTraditional centralised systems route all I/O signals back to a main control cabinet housing PLCs or distributed control systems. - Advantage: Programming stays simple because all logic resides in one controller. - Challenges: - Extensive wiring runs increase installation costs: field devices transmit signals over long cable runs to the central controller). - Create potential failure points: signal quality degrades over long distances. Plus, the central controller becomes a single point of failure that can shut down entire production areas. - Usage: - Smaller facilities with I/O points clustered near the control room - Preferred when tight integration between different processes is required\n\n\nSmart I/O modules with built-in processing power connect directly to field devices and make local decisions. These modules communicate with higher-level controllers through industrial networks like Ethernet/IP or Profinet. - Advantages: - Wiring costs drop dramatically - Response times improve - System reliability increases because failures in one area don’t affect others - Tradeoffs: - Higher upfront costs for intelligent I/O modules compared to simple remote I/O - Network management becomes more complex, requiring expertise in industrial communication protocols (Sources: Global Electronic Services)"
+    "text": "A fieldbus protocol for decentralised Input/Output. (Sources: Wireshark Wiki)\nUsed for communication in industrial control systems between PLCs and field devices (sensors, actuators, drives). (Sources: Medium @nahit.sogutlu)\nWorks on top of Ethernet and has 4 communication channels:\n\nTCP/IP for non-time-critical tasks such as configuration\nPROFINET Real-Time (RT) for time-critical data exchange\nPROFINET Isochronous Real-Time (IRT): a step beyond RT adds syncrhonisation and minimised network jitter\nTime Sensitive Networking (TSN)"
+  },
+  {
+    "objectID": "01-learning/protocols/PNIO.html#fieldbus-protocol",
+    "href": "01-learning/protocols/PNIO.html#fieldbus-protocol",
+    "title": "PROFINET IO (PN-IO)",
+    "section": "fieldbus protocol",
+    "text": "fieldbus protocol\nA digital, serial, multi-drop, two-way data bus or communication path or link between low-level industrial field equipment such as sensors, transducers, actuators, local controllers, and even control room devices.\n\nMulti-Drop Bus (MDB) – what is different from general buses? A computer bus able to connect three or more devices. A process of arbitration determines which device sends information at any point. The other devices listen for the data they are intended to receive.\nMultidrop buses have the advantage of simplicity and extensibility, but their differing electrical characteristics make them relatively unsuitable for high frequency or high bandwidth applications. (Sources: Wikipedia - Multidrop bus)\nTransducer Capabilities: provide the ability for computing devices to interact directly with physical entities of interest. The two types: sensing and actuating (Sources: NIST GLOSSARY)\n\n\nWhy need fieldbus?\nUse of fieldbus technologies eliminates the need for point-to-point wiring between the controller and each device. A protocol is used to define messages over the fieldbus network, and each message identifies a particular sensor on the network. (Sources: NIST GLOSSARY)"
   },
   {
     "objectID": "01-learning/protocols/PNIO.html#decentralised-io-vs-centralised-control-systems",
     "href": "01-learning/protocols/PNIO.html#decentralised-io-vs-centralised-control-systems",
     "title": "PROFINET IO (PN-IO)",
-    "section": "",
-    "text": "Traditional centralised systems route all I/O signals back to a main control cabinet housing PLCs or distributed control systems. - Advantage: Programming stays simple because all logic resides in one controller. - Challenges: - Extensive wiring runs increase installation costs: field devices transmit signals over long cable runs to the central controller). - Create potential failure points: signal quality degrades over long distances. Plus, the central controller becomes a single point of failure that can shut down entire production areas. - Usage: - Smaller facilities with I/O points clustered near the control room - Preferred when tight integration between different processes is required\n\n\nSmart I/O modules with built-in processing power connect directly to field devices and make local decisions. These modules communicate with higher-level controllers through industrial networks like Ethernet/IP or Profinet. - Advantages: - Wiring costs drop dramatically - Response times improve - System reliability increases because failures in one area don’t affect others - Tradeoffs: - Higher upfront costs for intelligent I/O modules compared to simple remote I/O - Network management becomes more complex, requiring expertise in industrial communication protocols (Sources: Global Electronic Services)"
+    "section": "Decentralised I/O (vs Centralised Control Systems)",
+    "text": "Decentralised I/O (vs Centralised Control Systems)\nTraditional centralised systems route all I/O signals back to a main control cabinet housing PLCs or distributed control systems. - Advantage: Programming stays simple because all logic resides in one controller. - Challenges: - Extensive wiring runs increase installation costs: field devices transmit signals over long cable runs to the central controller). - Create potential failure points: signal quality degrades over long distances. Plus, the central controller becomes a single point of failure that can shut down entire production areas. - Usage: - Smaller facilities with I/O points clustered near the control room - Preferred when tight integration between different processes is required\n\nDecentralised I/O systems\nSmart I/O modules with built-in processing power connect directly to field devices and make local decisions. These modules communicate with higher-level controllers through industrial networks like Ethernet/IP or Profinet. - Advantages: - Wiring costs drop dramatically - Response times improve - System reliability increases because failures in one area don’t affect others - Tradeoffs: - Higher upfront costs for intelligent I/O modules compared to simple remote I/O - Network management becomes more complex, requiring expertise in industrial communication protocols (Sources: Global Electronic Services)"
   },
   {
     "objectID": "01-learning/protocols/pkt-ModbusTCP.html",
@@ -126,6 +154,13 @@
     "text": "(Sources: Cisco Learning Network)"
   },
   {
+    "objectID": "01-learning/protocols/DTP.html",
+    "href": "01-learning/protocols/DTP.html",
+    "title": "Dynamic Trunking Protocol",
+    "section": "",
+    "text": "Dynamic Trunking Protocol\nA proprietary link layer protocol developed by Cisco Systems for the purpose of negotiating trunking on a link between two switches participating in a VLAN, and for negotiating the type of trunking encapsulation (802.1Q) to be used. (Sources: Wikipedia)"
+  },
+  {
     "objectID": "01-learning/protocols/ModbusTCP.html",
     "href": "01-learning/protocols/ModbusTCP.html",
     "title": "Modbus/TCP (Modbus TCP/IP)",
@@ -175,11 +210,123 @@
     "text": "The complete Modbus TCP/IP Application Data Unit is embedded into the data field of a standard TCP frame and sent via TCP to well-known system port 502, which is specifically reserved for Modbus applications.\nModbus TCP/IP clients and servers listen and receive Modbus message over Ethernet via port 502.\n(Sources: Introduction to Modbus TCP/IP)"
   },
   {
-    "objectID": "01-learning/protocols/TCP.html#tcp-protocol-502",
-    "href": "01-learning/protocols/TCP.html#tcp-protocol-502",
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-502",
+    "href": "01-learning/protocols/TCP.html#tcp-port-502",
     "title": "Verbose Potato",
     "section": "",
     "text": "The complete Modbus TCP/IP Application Data Unit is embedded into the data field of a standard TCP frame and sent via TCP to well-known system port 502, which is specifically reserved for Modbus applications.\nModbus TCP/IP clients and servers listen and receive Modbus message over Ethernet via port 502.\n(Sources: Introduction to Modbus TCP/IP)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-139",
+    "href": "01-learning/protocols/TCP.html#tcp-port-139",
+    "title": "Verbose Potato",
+    "section": "TCP Port 139",
+    "text": "TCP Port 139\nThe original SMB port, running as an application-layer protocol over NetBIOS on local Windows networks. Windows 2000 introduced port 445 as a replacement, and most modern environments have phased out port 139 in favour of it.\nIf port 139 is open anywhere on your network, you’re carrying legacy attack surface you probably don’t need. NetBIOS-based traffic has no signing or encryption backstop of its own, which is exactly what let EternalBlue-class exploits spread unchecked in attacks like WannaCry.\nPort 445 is more defensible, but only if SMB signing is enabled; otherwise, it’s exposed to the same relay and privilege-escalation techniques behind CVE-2025-33703.\n(Sources: Netwrix)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-3389",
+    "href": "01-learning/protocols/TCP.html#tcp-port-3389",
+    "title": "Verbose Potato",
+    "section": "TCP Port 3389",
+    "text": "TCP Port 3389\n\nRDP (Remote Desktop Protocol)\nA proprietary protocol developed by MS which provides a user with a graphical interface to connect to another computer over a network connection - By default, the server listens on TCP port 3389 and UDP port 3389.\n(Sources: Wikipedia)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-135",
+    "href": "01-learning/protocols/TCP.html#tcp-port-135",
+    "title": "Verbose Potato",
+    "section": "TCP Port 135",
+    "text": "TCP Port 135\nThe RCP endpoint mapper for Windows hosts. It helps clients find the right remote procedure call (RPC) service before a later connection is made, so it is a coordination point rather than the payload channel itself. That makes it part of the trust path for remote management and remote execution workflows.\n\nRPC (Remote Procedure Call)\n(In distributed computing) an action in which a computer causes a procedure (subroutine) to execute in a different address space of the current process (commonly on another computer on a shared computer network), which is written as if it were a normal (local) procedure call, without the programmer explicitly writing the details for the remote interaction.\n\n\nSecurity\nBecause it brokers service discovery for RPC, port 135 should be treated as an entry point with security significance even when another por such as 445 is already blocked. If it remains reachable where it is not needed, it can still help an attacker enumerate services, map the host, or reach follow-on management functions.\n(Sources: nhimg.org)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-5357",
+    "href": "01-learning/protocols/TCP.html#tcp-port-5357",
+    "title": "Verbose Potato",
+    "section": "TCP Port 5357",
+    "text": "TCP Port 5357\nWSDAPI (Web Services on Devices API) uses TCP port 5357 for HTTP traffic and TCP port 5358 for HTTPS traffic by default. These ports are reserved for lower privilege processes through a URL reservation in HTTP.sys, and are also reserved with IANA. (Sources: Microsoft Learn)\n\nUsed for:\n\nWindows network device discovery over WSD – finding and using WSD printers, scanners, and other devices via the Web Services on devices API\nLetting a PC advertise itself to other devices on the LAN.\nPort 5357 is opened on Windows (Vista, 7, 8, 10, and 11) by WSDAPI.\n\n\n\nCommon Risks\n\nInformation disclosure / fingerprinting: WSD device metadata leaks hostnames, OS and device model, and the presence of WSD printers/scanners.\n\nAn open 5357 is also a reliable “this is a Windows host with Network Discovery on” signal during recon – low severity on its own, but useful for profiling.\n\nA historic WSDAPI RCE: On Windows Vista and Server 2008, a crafted WSD packet could trigger remote code execution.\n\nCVE-2009-2512 (MS09-063) – The Web Service on Devices API Memory Corruption Vulnerability.\n\nWSDAPI does not correctly validate the headers of a received WSD message, so a specially crafted packet to TCP 5357/5358 could allow remote code execution with full control of the system.\nOnly attackers on the local subnet can exploit it\n\n\n\n(Sources: PentestPad)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-4840",
+    "href": "01-learning/protocols/TCP.html#tcp-port-4840",
+    "title": "Verbose Potato",
+    "section": "TCP Port 4840",
+    "text": "TCP Port 4840\nDefault port for OPC UA (Open Platform Communications Unified Architecture), the modern, vendor-neutral protocol that has become interoperability backbone of Industry 4.0 and the Industrial Internet of Things (IIoT).\n\nOPC UA (Open Platform Communications Unified Architecture)\n\nOPC UA is the successor to the old Windows-and-DCOM-bound OPC Classic, and it is how PLCs, SCADA system, MES (Manufacturing Execution System), and historians from different vendors exchange process data on a plant floor.\nExists specifically so that SCADA/HMI, a MES, a data historian, or a cloud/IIoT gateway can pull live data out of PLCs and controllers and push commands back – across vendors and across the IT/OT boundary.\n\n\n\nCommon Risks\n\nSecurityPolicy=None + Anonymous access: The dominant risk.\n\nOPC UA’s authentication, signing, and encryption are optional SecurityPolicies, and in the field they are very frequently left off.\n\nFull address-space exposure: Once connected, an attacker can browse the entire node tree, enumerating every variable, object, and method the server exposes – effectively a live map of the process and its tags.\n\n(Sources: PentestPad)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-102",
+    "href": "01-learning/protocols/TCP.html#tcp-port-102",
+    "title": "Verbose Potato",
+    "section": "TCP Port 102",
+    "text": "TCP Port 102\nLets industrial control systems (ICS) communicate over the Internet using the ISO Transport Service over TCP/IP protocol. This allows applications access to the benefits of both the ISO Transport protocol and the TCP/IP protocol.\n\nBackground\nMany industrial control systems use the ISO Transport protocol when communicating with each other because of its package-oriented tranfer of data. - This type of data transfer is preferable over TCP/IP and its streaming transfer of data. - However, the ISO Transport protocol lacks the ability to route data over the Internet, hence need to combine the two protocols.\nThe ISO Transport Service over TCP/IP protocol allows systems to use both the ISO Transport protocol and the TCP/IP protocol. It implements this by transferring data over port 102 between a client and a server.\n\n\nUsed For\nTransfer data between industrial control systems, such as those available from Siemens. This allows you to transfer data using packages and route it over the Internet.\n(Sources: CBT Nuggets)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-5900",
+    "href": "01-learning/protocols/TCP.html#tcp-port-5900",
+    "title": "Verbose Potato",
+    "section": "TCP Port 5900",
+    "text": "TCP Port 5900\n\nVCN (Virtual Network Computing) Protocol\nA cross-platform remote access protocol.\n(Sources: Hosting B2B)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-995",
+    "href": "01-learning/protocols/TCP.html#tcp-port-995",
+    "title": "Verbose Potato",
+    "section": "TCP Port 995",
+    "text": "TCP Port 995\nThe default port for POP3 over SSL/TLS (POP3S)\nMajor providers use it: Gmail, Outlook/Microsoft 365, and Yahoo Mail\nAttackers commonly target this port for credential brute-force against POP3S login when the service is exposed to the internet.\n(Sources: Internet-Security.com)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-21",
+    "href": "01-learning/protocols/TCP.html#tcp-port-21",
+    "title": "Verbose Potato",
+    "section": "TCP Port 21:",
+    "text": "TCP Port 21:\n\nFTP (File Transfer Protocol)\nAn old protocol and its control channel is frequently associated with legacy file movement, administrative workflows, and unmanaged internet exposure.\nEven when the service is intended for a narrow business purpose, an open listenre can reveal operational detail and expand the reachable attack surface.\n(Sources: nhimg.org)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-3306",
+    "href": "01-learning/protocols/TCP.html#tcp-port-3306",
+    "title": "Verbose Potato",
+    "section": "TCP Port 3306",
+    "text": "TCP Port 3306\n\nMySQL database connection\n(Sources: nhimg.org)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-25",
+    "href": "01-learning/protocols/TCP.html#tcp-port-25",
+    "title": "Verbose Potato",
+    "section": "TCP Port 25",
+    "text": "TCP Port 25\n\nSMTP\nThe standard network port for server-to-server email transfer.\n\nAttackers abuse it for spam, phishing delivery, and mail relay abuse when controls are weak.\n\n(Sources: nhimg.org)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-111",
+    "href": "01-learning/protocols/TCP.html#tcp-port-111",
+    "title": "Verbose Potato",
+    "section": "TCP Port 111",
+    "text": "TCP Port 111\nDedicated to the Remote Procedure Call (RPC) portmapper service, which allows RPC clients to discover what ports RPC services are available.\nThe RPC portmapper service allows RPC services on UNIX-like systems to register at which ports their services are available so that RPC clients can call them.\n(Sources: CBT Nuggets)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-554",
+    "href": "01-learning/protocols/TCP.html#tcp-port-554",
+    "title": "Verbose Potato",
+    "section": "TCP Port 554",
+    "text": "TCP Port 554\n\nRTSP (Real-Time Streaming Protocol)\nUsed for controlling live video and audio streams from IP cameras, NVRs (Network Video Recorder), DVRs (Digital Video Recorder), and media servers\nIn the real world, an open port 554 almost always means one thing: an IP camera, NVR/DVR, or media server exposing a live video feed. That’s why it’s one of the first ports worth chasing on any host – if the stream isn’t locked down, anyone who can reacy 554 can watch it.\n(Sources: PentestPad)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-993",
+    "href": "01-learning/protocols/TCP.html#tcp-port-993",
+    "title": "Verbose Potato",
+    "section": "TCP Port 993",
+    "text": "TCP Port 993\n\nIMAPS (IMAP over SSL)\nThe same Internet Message Access Protocol that runs in cleartext on port 143, but wrapped in TLS from the very first byte.\nAn open port 993 is rarely about breaking the encryption; it is about what the encryption doesn’t cover – the credentials in front of the tunnel and the mailbox behind it.\nIMAPS is how most mail clients are meant to read mail.\n(Sources: PentestPad)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-8080",
+    "href": "01-learning/protocols/TCP.html#tcp-port-8080",
+    "title": "Verbose Potato",
+    "section": "TCP Port 8080",
+    "text": "TCP Port 8080\n\nAn alternate HTTP listener\nA commonly used alternative HTTP port for web applications, proxies and administration interfaces. Because it often hosts non-production or management services, it is frequently exposed with weak authentication or outdated software.\n\n\nSecurity Risks\nA management interface on 8080 can reveal version banners, default login flows, dianostic endpoints or administrative functions that attackers can enumerate and abuse.\n(Sources: nhimg.org)"
+  },
+  {
+    "objectID": "01-learning/protocols/TCP.html#tcp-port-1723",
+    "href": "01-learning/protocols/TCP.html#tcp-port-1723",
+    "title": "Verbose Potato",
+    "section": "TCP Port 1723",
+    "text": "TCP Port 1723\n\nPPTP (Point-to-Point Tunneling Protocol)\nThe control channel for PPTP VPNs, a legacy Microsoft VPN with cryptographically broken authentication (data rides GRE, Generic Routing Encapsulation)\n(Sources: PentestPad)"
   },
   {
     "objectID": "02-analysis/Cyber4OT_004.html",
@@ -210,10 +357,38 @@
     "text": "2. UDP packet 54554 -&gt; 1947"
   },
   {
+    "objectID": "02-analysis/Cyber4OT_077.html",
+    "href": "02-analysis/Cyber4OT_077.html",
+    "title": "Nmap full scan of potential PLC device",
+    "section": "",
+    "text": "The target responds with RST, ACK packets, confirming that these ports are closed; if a port were open or filtered, there would typically be no reponse at all.\n\n(Sources: thecyberfort.net)\n\n\n34 2.826467    192.168.127.6   192.168.127.21  TCP 60  [TCP ACKed unseen segment] 53922 → 502 [ACK] Seq=1 Ack=2 Win=62929 Len=0\n\n\nIndicates that this trace file does not contain the data packet for this acknowledgement.\n86 8.003832    192.168.127.21  192.168.127.6   TCP 60  [TCP Dup ACK 33#1] 502 → 53922 [ACK] Seq=1 Ack=1 Win=5840 Len=0\n\n\n\n\n\n\nOut-of-Order Packets: When packets are received out of order, the receiver sends DUPACKs for the last in-sequence packet received.\nPacket Loss: If a packet is lost, subsequent packets will generate DUPACKs until the missing packet is retransmitted and successfully received.\n\n\n\n\nIf a sender receives three consecutive DUPACKs, it infers that a packet has likely been lost and retransmits the missing packet without waiting for the retransmission timer to expire.\n(Sources: Medium @alimoajiz999)"
+  },
+  {
+    "objectID": "02-analysis/Cyber4OT_077.html#tcp.stream-eq-3",
+    "href": "02-analysis/Cyber4OT_077.html#tcp.stream-eq-3",
+    "title": "Nmap full scan of potential PLC device",
+    "section": "",
+    "text": "34 2.826467    192.168.127.6   192.168.127.21  TCP 60  [TCP ACKed unseen segment] 53922 → 502 [ACK] Seq=1 Ack=2 Win=62929 Len=0\n\n\nIndicates that this trace file does not contain the data packet for this acknowledgement.\n86 8.003832    192.168.127.21  192.168.127.6   TCP 60  [TCP Dup ACK 33#1] 502 → 53922 [ACK] Seq=1 Ack=1 Win=5840 Len=0\n\n\n\n\n\n\nOut-of-Order Packets: When packets are received out of order, the receiver sends DUPACKs for the last in-sequence packet received.\nPacket Loss: If a packet is lost, subsequent packets will generate DUPACKs until the missing packet is retransmitted and successfully received.\n\n\n\n\nIf a sender receives three consecutive DUPACKs, it infers that a packet has likely been lost and retransmits the missing packet without waiting for the retransmission timer to expire.\n(Sources: Medium @alimoajiz999)"
+  },
+  {
     "objectID": "02-analysis/Devices.html",
     "href": "02-analysis/Devices.html",
     "title": "Devices",
     "section": "",
     "text": "Devices\nDevices | IP Address | MAC Address | Info | Port |\n——- | ———- | ———– | —- | . |\nDell_a5:8b:6a | 192.168.127.6 | 84:2b:2b:a5:8b:6a | SCADA MAPS system | tcp 53812 |\nMitsubishiEl_2d:ba:c1 | . | 28:e9:8e:2d:ba:c1 | . | . |\nSiemensNumer_0b:27:11 | 192.168.127.10 | 00:1c:06:0b:27:11 | . | . |\nSiemensIndus_a1:c1:a6 | 192.168.127.11 | . | S7-1200 V4 | . |\nSiemensIndus_03:bc:0a | 192.168.127.13 | e0:dc:a0:03:bc:0a | . | .|\nMitsubishiEl_bc:51:29 | 192.168.127.20 | 58:52:8a:bc:51:29 | PLC1 (FX5U) (ModbusTCP client)| . |\nMitsubishiEl_bc:51:2b | 192.168.127.21 | 58:52:8a:bc:51:2b | PLC2 (FX5U) (ModbusTCP server)| . |\nMitsubishiEl_f4:dc:5d | 192.168.127.23 | 58:52:8a:f4:dc:5d | . | . |\nMitsubishiEl_e0:04:e2 | 192.168.127.24 | . | Mitsubishi GOT2 HMI | . |\nRockwellAuto_05:29:80 | . | e4:90:69:05:29:80 | Switch | . |\nRockwellAuto_05:29:85 | . | e4:90:69:05:29:85 | Switch | . |\nMitsubishiEl_22:5c:dd | 192.168.127.30 | 10:4b:46:22:5c:dd | . | . |\nMitsubishiEl_2d:ba:c1 | 192.168.127.31 | 28:e9:8e:2d:ba:c1 | . | . |\nMitsubishiEl_e0:69:ce | 192.168.127.33 | 38:e0:8e:e0:69:ce | Mitsubishi GOT3 HMI | . |\n(possible attacker) | 192.168.127.126 | 52:5d:c9:36:7e:c6 | performed nmap | . |\n\n\nAddresses unsolved (multiple requests)\n\n169.254.255.255\n192.168.127.9\n192.168.127.250"
+  },
+  {
+    "objectID": "02-analysis/SCADA-MAPS.html",
+    "href": "02-analysis/SCADA-MAPS.html",
+    "title": "Open Ports (192.168.127.6)",
+    "section": "",
+    "text": "tcp.flags.reset == 1\n\n\n\n\n\n\n\n\n\nNumber\nProtocol\nInformation\n\n\n\n\n135\nTCP\nRCP (Remote Procedure Call) endpoint mapper\n\n\n139\nTCP\nLegacy SMB port\n\n\n445\nTCP\nModern SMB protocol\n\n\n3389\nTCP\nRDP\n\n\n4840\nTCP\nOPC UA (Open Platform Communications Unified Architecture)\n\n\n5357\nTCP\nWSDAPI\n\n\n9010\nTCP\nSmart UI Server (Ardroit)\n\n\n9064\nTCP\n(custom)"
+  },
+  {
+    "objectID": "02-analysis/SCADA-MAPS.html#filters-used",
+    "href": "02-analysis/SCADA-MAPS.html#filters-used",
+    "title": "Open Ports (192.168.127.6)",
+    "section": "",
+    "text": "tcp.flags.reset == 1\n\n\n\n\n\n\n\n\n\nNumber\nProtocol\nInformation\n\n\n\n\n135\nTCP\nRCP (Remote Procedure Call) endpoint mapper\n\n\n139\nTCP\nLegacy SMB port\n\n\n445\nTCP\nModern SMB protocol\n\n\n3389\nTCP\nRDP\n\n\n4840\nTCP\nOPC UA (Open Platform Communications Unified Architecture)\n\n\n5357\nTCP\nWSDAPI\n\n\n9010\nTCP\nSmart UI Server (Ardroit)\n\n\n9064\nTCP\n(custom)"
   }
 ]

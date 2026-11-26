@@ -117,13 +117,194 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="tcp-protocol-502" class="level2">
-<h2 class="anchored" data-anchor-id="tcp-protocol-502">TCP Protocol 502</h2>
+<section id="tcp-port-502" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-502">TCP Port 502</h2>
 <p>The complete Modbus TCP/IP Application Data Unit is embedded into the data field of a standard TCP frame and sent via TCP to well-known system port 502, which is specifically reserved for Modbus applications.</p>
 <p>Modbus TCP/IP clients and servers listen and receive Modbus message over Ethernet via port 502.</p>
 <p>(Sources: Introduction to Modbus TCP/IP)</p>
+</section>
+<section id="tcp-port-139" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-139">TCP Port 139</h2>
+<p>The original SMB port, running as an application-layer protocol over NetBIOS on local Windows networks. Windows 2000 introduced port 445 as a replacement, and most modern environments have phased out port 139 in favour of it.</p>
+<p>If port 139 is open anywhere on your network, you’re carrying legacy attack surface you probably don’t need. NetBIOS-based traffic has no signing or encryption backstop of its own, which is exactly what let EternalBlue-class exploits spread unchecked in attacks like WannaCry.</p>
+<p>Port 445 is more defensible, but only if SMB signing is enabled; otherwise, it’s exposed to the same relay and privilege-escalation techniques behind CVE-2025-33703.</p>
+<p>(Sources: Netwrix)</p>
+</section>
+<section id="tcp-port-3389" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-3389">TCP Port 3389</h2>
+<section id="rdp-remote-desktop-protocol" class="level3">
+<h3 class="anchored" data-anchor-id="rdp-remote-desktop-protocol">RDP (Remote Desktop Protocol)</h3>
+<p>A proprietary protocol developed by MS which provides a user with a graphical interface to connect to another computer over a network connection - By default, the server listens on <strong>TCP port 3389</strong> and <strong>UDP port 3389</strong>.</p>
+<p>(Sources: Wikipedia)</p>
+</section>
+</section>
+<section id="tcp-port-135" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-135">TCP Port 135</h2>
+<p>The <strong>RCP</strong> endpoint mapper for Windows hosts. It helps clients find the right <strong>remote procedure call (RPC)</strong> service before a later connection is made, so it is a coordination point rather than the payload channel itself. That makes it part of the trust path for remote management and remote execution workflows.</p>
+<section id="rpc-remote-procedure-call" class="level3">
+<h3 class="anchored" data-anchor-id="rpc-remote-procedure-call">RPC (Remote Procedure Call)</h3>
+<p>(In distributed computing) an action in which a computer causes a procedure (subroutine) to execute in a different address space of the current process (commonly on another computer on a shared computer network), which is written as if it were a normal (local) procedure call, without the programmer explicitly writing the details for the remote interaction.</p>
+</section>
+<section id="security" class="level3">
+<h3 class="anchored" data-anchor-id="security">Security</h3>
+<p>Because it brokers service discovery for RPC, port 135 should be treated as an entry point with security significance even when another por such as <strong>445</strong> is already blocked. If it remains reachable where it is not needed, it can still help an attacker enumerate services, map the host, or reach follow-on management functions.</p>
+<p>(Sources: nhimg.org)</p>
+</section>
+</section>
+<section id="tcp-port-5357" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-5357">TCP Port 5357</h2>
+<p><strong>WSDAPI (Web Services on Devices API)</strong> uses TCP port 5357 for HTTP traffic and TCP port 5358 for HTTPS traffic by default. These ports are reserved for lower privilege processes through a URL reservation in HTTP.sys, and are also reserved with IANA. (Sources: Microsoft Learn)</p>
+<section id="used-for" class="level3">
+<h3 class="anchored" data-anchor-id="used-for">Used for:</h3>
+<ul>
+<li>Windows <strong>network device discovery</strong> over WSD – finding and using WSD printers, scanners, and other devices via the Web Services on devices API</li>
+<li>Letting a PC advertise itself to other devices on the LAN.</li>
+<li>Port 5357 is opened on Windows (Vista, 7, 8, 10, and 11) by WSDAPI.</li>
+</ul>
+</section>
+<section id="common-risks" class="level3">
+<h3 class="anchored" data-anchor-id="common-risks">Common Risks</h3>
+<ul>
+<li><strong>Information disclosure / fingerprinting:</strong> WSD device metadata leaks hostnames, OS and device model, and the presence of WSD printers/scanners.
+<ul>
+<li>An open 5357 is also a reliable <em>“this is a Windows host with Network Discovery on”</em> signal during recon – low severity on its own, but useful for profiling.</li>
+</ul></li>
+<li>A historic WSDAPI RCE: On Windows Vista and Server 2008, a crafted WSD packet could trigger remote code execution.
+<ul>
+<li><strong>CVE-2009-2512 (MS09-063)</strong> – The Web Service on Devices API Memory Corruption Vulnerability.
+<ul>
+<li>WSDAPI does not correctly validate the headers of a received WSD message, so a specially crafted packet to TCP 5357/5358 could allow remote code execution with full control of the system.</li>
+<li>Only attackers on the local subnet can exploit it</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>(Sources: PentestPad)</p>
+</section>
+</section>
+<section id="tcp-port-4840" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-4840">TCP Port 4840</h2>
+<p>Default port for <strong>OPC UA (Open Platform Communications Unified Architecture)</strong>, the modern, vendor-neutral protocol that has become interoperability backbone of Industry 4.0 and the Industrial Internet of Things (IIoT).</p>
+<section id="opc-ua-open-platform-communications-unified-architecture" class="level3">
+<h3 class="anchored" data-anchor-id="opc-ua-open-platform-communications-unified-architecture">OPC UA (Open Platform Communications Unified Architecture)</h3>
+<ul>
+<li>OPC UA is the successor to the old Windows-and-DCOM-bound OPC Classic, and it is how PLCs, SCADA system, MES (Manufacturing Execution System), and historians from different vendors exchange process data on a plant floor.</li>
+<li>Exists specifically so that SCADA/HMI, a MES, a data historian, or a cloud/IIoT gateway can pull live data out of PLCs and controllers and push commands back – across vendors and across the IT/OT boundary.</li>
+</ul>
+</section>
+<section id="common-risks-1" class="level3">
+<h3 class="anchored" data-anchor-id="common-risks-1">Common Risks</h3>
+<ul>
+<li><strong><code>SecurityPolicy=None</code> + Anonymous access:</strong> The dominant risk.
+<ul>
+<li>OPC UA’s authentication, signing, and encryption are optional SecurityPolicies, and in the field they are very frequently left off.</li>
+</ul></li>
+<li>Full address-space exposure: Once connected, an attacker can browse the entire node tree, enumerating every variable, object, and method the server exposes – effectively a live map of the process and its tags.</li>
+</ul>
+<p>(Sources: PentestPad)</p>
+</section>
+</section>
+<section id="tcp-port-102" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-102">TCP Port 102</h2>
+<p>Lets industrial control systems (ICS) communicate over the Internet using the <strong>ISO Transport Service</strong> over TCP/IP protocol. This allows applications access to the benefits of both the ISO Transport protocol and the TCP/IP protocol.</p>
+<section id="background" class="level3">
+<h3 class="anchored" data-anchor-id="background">Background</h3>
+<p>Many industrial control systems use the ISO Transport protocol when communicating with each other because of its <strong>package-oriented tranfer</strong> of data. - This type of data transfer is preferable over TCP/IP and its streaming transfer of data. - However, the ISO Transport protocol lacks the ability to route data over the Internet, hence need to combine the two protocols.</p>
+<p>The ISO Transport Service over TCP/IP protocol allows systems to use both the ISO Transport protocol and the TCP/IP protocol. It implements this by transferring data over port 102 between a client and a server.</p>
+</section>
+<section id="used-for-1" class="level3">
+<h3 class="anchored" data-anchor-id="used-for-1">Used For</h3>
+<p>Transfer data between industrial control systems, such as those available from <strong>Siemens</strong>. This allows you to transfer data using packages and route it over the Internet.</p>
+<p>(Sources: CBT Nuggets)</p>
+</section>
+</section>
+<section id="tcp-port-5900" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-5900">TCP Port 5900</h2>
+<section id="vcn-virtual-network-computing-protocol" class="level3">
+<h3 class="anchored" data-anchor-id="vcn-virtual-network-computing-protocol">VCN (Virtual Network Computing) Protocol</h3>
+<p>A cross-platform remote access protocol.</p>
+<p>(Sources: Hosting B2B)</p>
+</section>
+</section>
+<section id="tcp-port-995" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-995">TCP Port 995</h2>
+<p>The default port for POP3 over SSL/TLS (POP3S)</p>
+<p>Major providers use it: Gmail, Outlook/Microsoft 365, and Yahoo Mail</p>
+<p>Attackers commonly target this port for credential brute-force against POP3S login when the service is exposed to the internet.</p>
+<p>(Sources: Internet-Security.com)</p>
+</section>
+<section id="tcp-port-21" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-21">TCP Port 21:</h2>
+<section id="ftp-file-transfer-protocol" class="level3">
+<h3 class="anchored" data-anchor-id="ftp-file-transfer-protocol">FTP (File Transfer Protocol)</h3>
+<p>An old protocol and its control channel is frequently associated with legacy file movement, administrative workflows, and unmanaged internet exposure.</p>
+<p>Even when the service is intended for a narrow business purpose, an open listenre can reveal operational detail and expand the reachable attack surface.</p>
+<p>(Sources: nhimg.org)</p>
+</section>
+</section>
+<section id="tcp-port-3306" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-3306">TCP Port 3306</h2>
+<section id="mysql-database-connection" class="level3">
+<h3 class="anchored" data-anchor-id="mysql-database-connection">MySQL database connection</h3>
+<p>(Sources: nhimg.org)</p>
+</section>
+</section>
+<section id="tcp-port-25" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-25">TCP Port 25</h2>
+<section id="smtp" class="level3">
+<h3 class="anchored" data-anchor-id="smtp">SMTP</h3>
+<p>The standard network port for server-to-server email transfer.</p>
+<ul>
+<li>Attackers abuse it for spam, phishing delivery, and mail relay abuse when controls are weak.</li>
+</ul>
+<p>(Sources: nhimg.org)</p>
+</section>
+</section>
+<section id="tcp-port-111" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-111">TCP Port 111</h2>
+<p>Dedicated to the <strong>Remote Procedure Call (RPC)</strong> portmapper service, which allows RPC clients to discover what ports RPC services are available.</p>
+<p>The RPC portmapper service allows RPC services on <strong>UNIX-like systems</strong> to register at which ports their services are available so that RPC clients can call them.</p>
+<p>(Sources: CBT Nuggets)</p>
+</section>
+<section id="tcp-port-554" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-554">TCP Port 554</h2>
+<section id="rtsp-real-time-streaming-protocol" class="level3">
+<h3 class="anchored" data-anchor-id="rtsp-real-time-streaming-protocol">RTSP (Real-Time Streaming Protocol)</h3>
+<p>Used for controlling live video and audio streams from IP cameras, NVRs (Network Video Recorder), DVRs (Digital Video Recorder), and media servers</p>
+<p>In the real world, an open port 554 almost always means one thing: an IP camera, NVR/DVR, or media server exposing a live video feed. That’s why it’s one of the first ports worth chasing on any host – if the stream isn’t locked down, anyone who can reacy 554 can watch it.</p>
+<p>(Sources: PentestPad)</p>
+</section>
+</section>
+<section id="tcp-port-993" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-993">TCP Port 993</h2>
+<section id="imaps-imap-over-ssl" class="level3">
+<h3 class="anchored" data-anchor-id="imaps-imap-over-ssl">IMAPS (IMAP over SSL)</h3>
+<p>The same Internet Message Access Protocol that runs in cleartext on port 143, but wrapped in TLS from the very first byte.</p>
+<p>An open port 993 is rarely about breaking the encryption; it is about what the encryption doesn’t cover – the credentials in front of the tunnel and the mailbox behind it.</p>
+<p>IMAPS is how most mail clients are meant to <strong>read</strong> mail.</p>
+<p>(Sources: PentestPad)</p>
+</section>
+</section>
+<section id="tcp-port-8080" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-8080">TCP Port 8080</h2>
+<section id="an-alternate-http-listener" class="level3">
+<h3 class="anchored" data-anchor-id="an-alternate-http-listener">An alternate HTTP listener</h3>
+<p>A commonly used alternative <strong>HTTP</strong> port for web applications, proxies and administration interfaces. Because it often hosts non-production or management services, it is frequently exposed with weak authentication or outdated software.</p>
+</section>
+<section id="security-risks" class="level3">
+<h3 class="anchored" data-anchor-id="security-risks">Security Risks</h3>
+<p>A management interface on 8080 can reveal version banners, default login flows, dianostic endpoints or administrative functions that attackers can enumerate and abuse.</p>
+<p>(Sources: nhimg.org)</p>
+</section>
+</section>
+<section id="tcp-port-1723" class="level2">
+<h2 class="anchored" data-anchor-id="tcp-port-1723">TCP Port 1723</h2>
+<section id="pptp-point-to-point-tunneling-protocol" class="level3">
+<h3 class="anchored" data-anchor-id="pptp-point-to-point-tunneling-protocol">PPTP (Point-to-Point Tunneling Protocol)</h3>
+<p>The control channel for PPTP VPNs, a legacy Microsoft VPN with cryptographically broken authentication (data rides GRE, Generic Routing Encapsulation)</p>
+<p>(Sources: PentestPad)</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

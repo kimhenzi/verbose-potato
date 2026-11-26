@@ -1,5 +1,16 @@
 # PROFINET IO (PN-IO)
-A **fieldbus protocol** for **decentralised Input/Output**. (Sources: Wireshark Wiki)
+- A **fieldbus protocol** for **decentralised Input/Output**. (Sources: Wireshark Wiki)
+
+- Used for communication in industrial control systems between PLCs and field devices (sensors, actuators, drives). (Sources: Medium @nahit.sogutlu)
+
+- Works on top of Ethernet and has 4 communication channels:
+  - **TCP/IP** for non-time-critical tasks such as configuration
+  - **PROFINET Real-Time (RT)** for time-critical data exchange
+  - **PROFINET Isochronous Real-Time (IRT):** a step beyond RT adds syncrhonisation and minimised network jitter
+  - **Time Sensitive Networking (TSN)**
+
+# For more information
+
 ## fieldbus protocol
 A digital, serial, **multi-drop**, two-way data bus or communication path or link between low-level industrial field equipment such as sensors, **transducers**, **actuators**, local controllers, and even control room devices.
 
